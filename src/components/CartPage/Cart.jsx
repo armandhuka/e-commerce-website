@@ -1,13 +1,17 @@
 import React, { useContext } from 'react';
 import { CreatContext } from '../../App';
- // Import the CSS file for styles
 
 const Cart = () => {
-  const { cartItems, setCartItems } = useContext(CreatContext); // Use useContext to access cart items and setCartItems
+  const { cartItems, setCartItems } = useContext(CreatContext);
 
   const handleRemoveItem = (itemId) => {
-    // Remove item from cart
     setCartItems(cartItems.filter(item => item.id !== itemId));
+  };
+
+  // Function to truncate description to 5 words
+  const truncateDescription = (description) => {
+    const words = description.split(' ');
+    return words.length > 5 ? words.slice(0, 5).join(' ') + '...' : description;
   };
 
   return (
@@ -21,7 +25,7 @@ const Cart = () => {
             <li key={item.id} className='add-to-cart-product'>
               <div>
                 <h2>{item.name}</h2>
-                <p>{item.description}</p>
+                <p>{truncateDescription(item.description)}</p> {/* Truncated description */}
               </div>
               <button onClick={() => handleRemoveItem(item.id)} className='remove-btn'>Remove</button>
             </li>
